@@ -31,10 +31,10 @@ const HistoryPage = {
             const wrong = (a.details || []).filter(d => !d.correct).length;
             return `
                 <tr>
-                    <td>${Utils.formatDate(a.created_at)}</td>
-                    <td><span class="pill ${Utils.scoreClass(p)}">${p}%</span> ${a.correct_answers}/${a.total_questions}</td>
-                    <td class="hide-sm">${Utils.escape(topics)}</td>
-                    <td class="hide-sm">${Utils.formatDuration(a.duration_seconds)}</td>
+                    <td data-label="Data">${Utils.formatDate(a.created_at)}</td>
+                    <td data-label="Resultado"><span><span class="pill ${Utils.scoreClass(p)}">${p}%</span> ${a.correct_answers}/${a.total_questions}</span></td>
+                    <td data-label="Temas">${Utils.escape(topics)}</td>
+                    <td data-label="Tempo">${Utils.formatDuration(a.duration_seconds)}</td>
                     <td class="row-actions">
                         ${wrong ? `<button class="btn btn-secondary btn-sm" onclick="HistoryPage.retry('${a.id}')">Repetir erradas</button>` : ''}
                         <button class="btn btn-danger btn-sm" onclick="HistoryPage.remove('${a.id}')" aria-label="Apagar teste">✕</button>
@@ -57,7 +57,7 @@ const HistoryPage = {
                 <h2>Histórico</h2>
                 <div class="table-wrap">
                     <table class="table">
-                        <thead><tr><th>Data</th><th>Resultado</th><th class="hide-sm">Temas</th><th class="hide-sm">Tempo</th><th></th></tr></thead>
+                        <thead><tr><th>Data</th><th>Resultado</th><th>Temas</th><th>Tempo</th><th></th></tr></thead>
                         <tbody>${rows}</tbody>
                     </table>
                 </div>

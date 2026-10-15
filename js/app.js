@@ -61,6 +61,7 @@ const App = {
         this.currentPage = page;
         clearInterval(QuizPage.timer);
         QuizPage.state = null;
+        document.body.classList.remove('in-quiz');
         this.setActiveNav(page);
 
         const main = document.getElementById('mainContent');
@@ -88,6 +89,7 @@ const App = {
         if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
         else document.documentElement.removeAttribute('data-theme');
         document.getElementById('themeIcon').textContent = theme === 'light' ? '☀️' : '🌙';
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#ffffff' : '#0f172a');
     }
 };
 

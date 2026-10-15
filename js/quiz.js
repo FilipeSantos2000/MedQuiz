@@ -35,11 +35,13 @@ const QuizPage = {
                 <div class="field">
                     <label class="form-label" for="qCount">Número de perguntas <span class="muted">(máx. <span id="qMax">${QUESTIONS.length}</span>)</span></label>
                     <div class="count-row">
-                        <input type="number" id="qCount" class="form-input count-input" min="1" max="${QUESTIONS.length}" value="${Math.min(20, QUESTIONS.length)}">
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="QuizPage.setCount(10)">10</button>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="QuizPage.setCount(20)">20</button>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="QuizPage.setCount(40)">40</button>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="QuizPage.setCount(9999)">Todas</button>
+                        <input type="number" id="qCount" class="form-input count-input" inputmode="numeric" min="1" max="${QUESTIONS.length}" value="${Math.min(20, QUESTIONS.length)}">
+                        <div class="count-presets">
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="QuizPage.setCount(10)">10</button>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="QuizPage.setCount(20)">20</button>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="QuizPage.setCount(40)">40</button>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="QuizPage.setCount(9999)">Todas</button>
+                        </div>
                     </div>
                 </div>
 
@@ -111,6 +113,7 @@ const QuizPage = {
             startedAt: Date.now(),
             finished: false
         };
+        document.body.classList.add('in-quiz');
         this.startTimer();
         this.renderQuestion();
     },
@@ -221,6 +224,7 @@ const QuizPage = {
 
         clearInterval(this.timer);
         s.finished = true;
+        document.body.classList.remove('in-quiz');
         const duration = Math.round((Date.now() - s.startedAt) / 1000);
         const result = QuizEngine.score(s.questions, s.answers);
 
